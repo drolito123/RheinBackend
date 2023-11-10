@@ -1,8 +1,9 @@
 import express from 'express';
+import { getProducts, getProductsByPrice, SetNewProduct, ModifyProduct, getProductsByModels } from '../controlers/controler';
 
 const rout = express.Router();
 rout.get('/', (_, res) => {
-    res.send("donde hubo fuego cenizas quedan");
+    res.send("working");
 });
 
 const pym = [
@@ -11,46 +12,15 @@ const pym = [
     {nombre: "motorola", modelo: "h2r2", precio: 90, pais: "usa"}
 ];
 
-rout.get('/ny', (_, res) => {
-    res.send(pym.filter((prod) => prod.precio > 100));
-});
+rout.get("/products", getProducts);
 
-rout.post('/ny', (req, res) => {
-    const newProduct = req.body;
-    pym.push(newProduct);
-    res.status(201).json(newProduct);
-});
+rout.get("/products/precio", getProductsByPrice);
 
-rout.put('/pym/:nombre', (req, res) => {
-    const nombre = req.params.nombre;
-    const { newname, newmodel, newprice, newcountry } = req.body;
+rout.post('/products/model/:modelo', SetNewProduct );
 
-    const i = pym.findIndex(product => product.nombre === nombre);
-    
-    if (i !== -1) {
-        pym[i].nombre = newname;
-        pym[i].modelo = newmodel;
-        pym[i].precio = newprice;
-        pym[i].pais = newcountry;
-      
-        res.send('Producto actualizado correctamente');
-    } else {
-        res.send('Producto no encontrado');
-    }
-});
+rout.put('/products/name/:nombre', ModifyProduct);
 
-rout.put('/pym/:modelo', (req, res) => {
-    const model = req.params.modelo;
-
-    const i = pym.findIndex(modelo => modelo.nombre === model);
-    
-    if (i !== -1) {
-        pym.splice(i, 1)
-        res.send('Producto Eliminado');
-    } else {
-        res.send('Producto no encontrado');
-    }
-});
+rout.put('/pym/:modelo',getProductsByModels );
 
 rout.put('/pym/precio/:precio', (req, res) => {
     const precio = req.params.precio;
