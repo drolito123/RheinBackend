@@ -66,3 +66,25 @@ rout.put('/pym/precio/:precio', (req, res) => {
 });
 
 export default rout;
+
+rout.get("/pym/pais/:pais", (req, res) => {
+
+const pais = req.params.pais;
+
+const product = pym.find((p) => p.pais === pais);
+if (product) {
+    res.json(product);
+} else {
+    res.status(404).json({ message: "Producto no encontrado" });
+}
+});
+
+rout.get("/pym/precio/:precio", (req, res) => {
+const precio = parseInt(req.params.precio);
+const product = pym.find((p) => p.precio === precio);
+if (product) {
+    res.json(product);
+} else {
+    res.status(404).json({ message: "Producto no encontrado" });
+}
+});
