@@ -1,60 +1,37 @@
 import express from 'express';
-import { getProducts, getProductsByPrice, SetNewProduct, ModifyProduct, getProductsByModels } from '../controlers/controler';
+import { getProducts, getProductsByPrice, SetNewProduct, ModifyProduct, getProductsByContry, DeleteProductByModel, getProductsByPriceTwo } from '../controlers/controler';
 
 const rout = express.Router();
 rout.get('/', (_, res) => {
     res.send("working");
 });
 
-const pym = [
-    {nombre: "samsung", modelo: "x10", precio: 1100, pais: "corea"},
-    {nombre: "iphone", modelo: "p2p", precio: 900, pais: "usa"},
-    {nombre: "motorola", modelo: "h2r2", precio: 90, pais: "usa"}
-];
+//1 obtener todos los productos
 
 rout.get("/products", getProducts);
 
+//2 obtener todos los productos cuyo precio sea mayor a 100
+
 rout.get("/products/precio", getProductsByPrice);
 
-rout.post('/products/model/:modelo', SetNewProduct );
+//3modificar un producto exsistente 
 
 rout.put('/products/name/:nombre', ModifyProduct);
 
-rout.put('/pym/:modelo',getProductsByModels );
+//4 eliminar un producto por su modelo
 
-rout.put('/pym/precio/:precio', (req, res) => {
-    const precio = req.params.precio;
+rout.delete('/products/delete/:modelo', DeleteProductByModel)
 
-    const i = pym.findIndex(price => price.nombre === precio);
-    
-    if (i !== -1) {
-        pym.splice(i, 1)
-        res.send('Producto Eliminado');
-    } else {
-        res.send('Producto no encontrado');
-    }
-});
+//5 obtener un producto por su pais de origen
+
+rout.get('/products/contry/:pais',getProductsByContry );
+
+//6 obtener un producto por su precio
+
+rout.get("/productos/precio/:precio", getProductsByPriceTwo );
+
+//7 crear un nuevo producto siempre y cuando posea las mismas claves que los productos restantes
+
+rout.post('/products/model/:modelo', SetNewProduct );
 
 export default rout;
-
-rout.get("/pym/pais/:pais", (req, res) => {
-
-const pais = req.params.pais;
-
-const product = pym.find((p) => p.pais === pais);
-if (product) {
-    res.json(product);
-} else {
-    res.status(404).json({ message: "Producto no encontrado" });
-}
-});
-
-rout.get("/pym/precio/:precio", (req, res) => {
-const precio = parseInt(req.params.precio);
-const product = pym.find((p) => p.precio === precio);
-if (product) {
-    res.json(product);
-} else {
-    res.status(404).json({ message: "Producto no encontrado" });
-}
-});
