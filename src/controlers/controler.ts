@@ -1,4 +1,6 @@
 import { Request, Response } from 'express';
+import { Db } from '../db/db';
+
 
 const pym = [
     {nombre: "remera", modelo: "1314", precio: 1100, pais: "arg"},
@@ -6,6 +8,9 @@ const pym = [
     {nombre: "buzo", modelo: "h2r2", precio: 90, pais: "arg"}
 ];
 
+export const getAll = async () => {
+    await Db.getAll();
+}
 
 //1
 
