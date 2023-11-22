@@ -9,14 +9,21 @@ export class Remera{
     name!: string;
 
     @Column()
-    description!: string;
+    price!: number;
+
+    
+    @Column()
+    image!: string;
+
 
     @Column()
-    filename!: string;
+    onstock!: string;
 
-    @Column()
-    views!: number;
-
-    @Column()
-    isPublished!: boolean;
+    constructor(name:string,price:number,image:string,onstock:string){
+        this.price=price
+        this.name=name
+        this.image=image
+        this.onstock=onstock
+    }
 }
+
