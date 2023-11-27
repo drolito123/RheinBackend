@@ -13,17 +13,14 @@ export class Remera{
 
     
     @Column()
-    image!: string;
+    img!: string;
 
-
-    @Column()
-    onstock!: string;
-
-    constructor(name:string,price:number,image:string,onstock:string){
+    constructor(name:string,price:number,img:string){
         this.price=price
         this.name=name
-        this.image=image
-        this.onstock=onstock
+        this.img=img
     }
 }
+
+
 
