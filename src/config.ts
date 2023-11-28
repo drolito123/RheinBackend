@@ -4,7 +4,6 @@ import { Remera } from './models/producs';
 import { logdata } from './models/logdata';
 
 
-
 export const AppDataSource = new DataSource({
     type: "mysql",
     host: "localhost",
