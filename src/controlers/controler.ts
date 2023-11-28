@@ -24,7 +24,18 @@ export const eliminarProducto = async (req: Request, res: Response) => {
     console.error(error);
     return res.status(500).send('Internal Server Error');
 }
-  };
+};
+
+
+export const GetRemeras = async (_: Request, res: Response) => {
+    try {
+        const remeras = await AppDataSource.manager.find(Remera);
+        res.json(remeras);
+    } catch (error) {
+        console.error('Error al obtener remeras:', error);
+        res.status(500).json({ error: 'Error al obtener remeras' });
+    }
+}
 
 // const pym = [
 //     {nombre: "remera", modelo: "1314", precio: 1100, pais: "arg"},

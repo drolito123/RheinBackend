@@ -6,19 +6,24 @@ export class Remera{
     id!: number;
 
     @Column()
-    name!: string;
+    name: string;
 
     @Column()
-    price!: number;
+    price: number;
 
     
     @Column()
-    img!: string;
+    img: string;
 
-    constructor(name:string,price:number,img:string){
+    
+    @Column()
+    quantity: number;
+
+    constructor(name:string,price:number,img:string,quantity:number){
         this.price=price
         this.name=name
         this.img=img
+        this.quantity=quantity
     }
 }
 

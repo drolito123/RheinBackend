@@ -1,7 +1,5 @@
 import express from 'express';
-import { Remera } from '../models/producs';
-import { AppDataSource } from '../config';
-import { eliminarProducto } from '../controlers/controler';
+import { eliminarProducto, GetRemeras } from '../controlers/controler';
 //import { getProducts, getProductsByPrice, SetNewProduct, ModifyProduct, getProductsByContry, DeleteProductByModel, getProductsByPriceTwo } from '../controlers/controler';
 
 const rout = express.Router();
@@ -9,15 +7,7 @@ rout.get('/', (_, res) => {
     res.send("working");
 });
 
-rout.get('/remeras', async (_, res) => {
-    try {
-        const remeras = await AppDataSource.manager.find(Remera);
-        res.json(remeras);
-    } catch (error) {
-        console.error('Error al obtener remeras:', error);
-        res.status(500).json({ error: 'Error al obtener remeras' });
-    }
-});
+rout.get('/remeras', GetRemeras);
 
 rout.delete('/remeras/deleteR/:name', eliminarProducto);
 
