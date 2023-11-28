@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import { AppDataSource } from '../config';
 import { Db } from '../db/db';
 import { Remera } from '../models/producs';
+import { logdata } from '../models/logdata';
+
 
 export const getAll = async () => {
     await Db.getAll();
@@ -37,6 +39,27 @@ export const GetRemeras = async (_: Request, res: Response) => {
     }
 }
 
+
+
+export class LogDataController {
+    private logDataRepository = AppDataSource.getRepository(logdata);
+  
+    async getAll(_: Request, res: Response) {
+      const logData = await this.logDataRepository.find();
+      res.json(logData);
+    }
+  
+    async create(req: Request, res: Response) {
+      const { mail, password, username } = req.body;
+      const newLogData = this.logDataRepository.create({ mail, password, username });
+      await this.logDataRepository.save(newLogData);
+      res.json(newLogData);
+    }
+  }
+  
+
+  
+    // Puedes agregar métodos para actualizar y eliminar según sea necesario
 // const pym = [
 //     {nombre: "remera", modelo: "1314", precio: 1100, pais: "arg"},
 //     {nombre: "pantalon", modelo: "p2p", precio: 900, pais: "arg"},

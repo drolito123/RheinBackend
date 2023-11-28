@@ -6,13 +6,17 @@ export class logdata{
     id!: number;
 
     @Column()
-    mail!: string;
+    mail: string;
 
     @Column()
-    password!: string;
+    username: string;
 
-    constructor(mail:string,password:string){
+    @Column()
+    password: string;
+
+    constructor(mail:string,password:string,username:string){
         this.password=password
         this.mail=mail
+        this.username=username
     }
 }

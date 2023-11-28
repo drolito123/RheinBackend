@@ -1,15 +1,21 @@
 import express from 'express';
-import { eliminarProducto, GetRemeras } from '../controlers/controler';
+import { eliminarProducto, GetRemeras, LogDataController,  } from '../controlers/controler';
 //import { getProducts, getProductsByPrice, SetNewProduct, ModifyProduct, getProductsByContry, DeleteProductByModel, getProductsByPriceTwo } from '../controlers/controler';
 
 const rout = express.Router();
 rout.get('/', (_, res) => {
     res.send("working");
 });
+const logDataController = new LogDataController();
 
 rout.get('/remeras', GetRemeras);
 
 rout.delete('/remeras/deleteR/:name', eliminarProducto);
+
+rout.get("/logdata", logDataController.getAll.bind(logDataController));
+
+rout.post("/logdata", logDataController.create.bind(logDataController));
+
 
 // //1 obtener todos los productos
 
