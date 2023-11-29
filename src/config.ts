@@ -2,6 +2,7 @@ import { DataSource } from 'typeorm';
 import 'reflect-metadata'
 import { Remera } from './models/producs';
 import { logdata } from './models/logdata';
+import { Compra } from './models/compra'
 
 
 export const AppDataSource = new DataSource({
@@ -13,7 +14,7 @@ export const AppDataSource = new DataSource({
     database: "pensado",
     synchronize: true,
     logging: true,
-    entities: [Remera, logdata],
+    entities: [Remera, logdata, Compra],
     subscribers: [],
     migrations: [],
 });
